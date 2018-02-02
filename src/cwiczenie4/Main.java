@@ -57,11 +57,11 @@ public class Main {
 //			System.out.println(len);
 			System.out.format("%s",file.getName());
 			if(attr.isDirectory()) {
-				System.out.format("%30s","DIR");
+				System.out.format("%-5s","DIR");
 			}else {
-				System.out.format("%30d",(attr.size())/(1024));	
+				System.out.format("%-5d",(attr.size())/(1024));	
 			}
-			System.out.println(String.format("%30s", df.format(attr.creationTime().toMillis())));
+			System.out.println(String.format("%-500s", df.format(attr.creationTime().toMillis())));
 //			System.out.format("%d%n",(attr.size())/(1024)); //25 leading characters, decimal integer, new line
 			
 		}
