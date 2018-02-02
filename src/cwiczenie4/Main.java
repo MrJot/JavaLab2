@@ -1,6 +1,7 @@
 package cwiczenie4;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -17,7 +18,7 @@ public class Main {
 		//printFiles("C:\\", ".txt");
 		//printTree("C:\\");
 		
-		printFilesDetails("C:\\Users\\w18154\\Desktop\\TestFolder");
+		printFiles("/Users/grzegorzjuszkiewicz/Desktop/Java/pl/project/encryption",".java");
 	}
  
 	public static void printFilesSimple(String path) {
@@ -40,7 +41,7 @@ public class Main {
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd mm:ss");
 		File singleFile = new File(path);
 		File[] listOfFiles = singleFile.listFiles();
-		System.out.println(new char[50]);
+//		System.out.println(new char[50]);
 		String labelOne = "File name";
 		String labelTwo = "Size";
 		String labelThree ="Date";
@@ -59,7 +60,7 @@ public class Main {
 			if(attr.isDirectory()) {
 				System.out.format("%-25s","DIR");
 			}else {
-				System.out.format("%-25d",(attr.size())/(1024));	
+				System.out.format("%-25d",(attr.size()));	
 			}
 			System.out.println(String.format("%s", df.format(attr.creationTime().toMillis())));
 //			System.out.format("%d%n",(attr.size())/(1024)); //25 leading characters, decimal integer, new line
@@ -68,7 +69,13 @@ public class Main {
 	}
 	
 	public static void printFiles(String path, String extensionFilter) {
-		// to be implemented
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(extensionFilter);
+			}
+		};
+		
 	}
 
 	public static void printTree(String path) {
