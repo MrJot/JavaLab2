@@ -55,13 +55,13 @@ public class Main {
 			BasicFileAttributes attr = Files.readAttributes(pathNew, BasicFileAttributes.class);
 			int len = file.getName().length();
 //			System.out.println(len);
-			System.out.format("%s",file.getName());
+			System.out.format("%-35s",file.getName());
 			if(attr.isDirectory()) {
-				System.out.format("%-5s","DIR");
+				System.out.format("%-25s","DIR");
 			}else {
-				System.out.format("%-5d",(attr.size())/(1024));	
+				System.out.format("%-25d",(attr.size())/(1024));	
 			}
-			System.out.println(String.format("%-500s", df.format(attr.creationTime().toMillis())));
+			System.out.println(String.format("%s", df.format(attr.creationTime().toMillis())));
 //			System.out.format("%d%n",(attr.size())/(1024)); //25 leading characters, decimal integer, new line
 			
 		}
