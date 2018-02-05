@@ -1,6 +1,13 @@
 package zadanie2;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Commander {
@@ -49,7 +56,27 @@ public class Commander {
 	
 	
 	
-	public void complexFileListening() {
+	public void complexFileListening() throws IOException {
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd mm:ss");
+		File[] listOfFiles = new File(getPath()).listFiles();
+//		File[] listOfFiles = singleFile.listFiles();
+		System.out.format("%s","File name");
+		System.out.format("%30s", "Size");
+		System.out.format("%30s%n", "Date");
+		
+		for(File file:listOfFiles) {
+			Path pathNew = Paths.get(file.toString());			
+			BasicFileAttributes attr = Files.readAttributes(pathNew, BasicFileAttributes.class);
+			System.out.format("%-35s",file.getName());
+			if(attr.isDirectory()) {
+				System.out.format("%-25s","DIR");
+			}else {
+				System.out.format("%-25d",(attr.size()));	
+			}
+			System.out.println(String.format("%s", df.format(attr.creationTime().toMillis())));
+//			System.out.format("%d%n",(attr.size())/(1024)); //25 leading characters, decimal integer, new line
+			
+		}
 
 	}
 	
@@ -66,7 +93,7 @@ public class Commander {
 		setPath(scan.nextLine());
 	}
 	
-	public void selectYourOperation() {
+	public void selectYourOperation() throws IOException {
 		System.out.println("[1] - Simple file listening\n" + "[2] - Complex file listening\n"
 				+ "[3] - List file with specific file extension  " + "\n[4] - Print file/folder tree");
 		setUserOption(scan.nextInt());
@@ -90,13 +117,13 @@ public class Commander {
 		}
 	}
 	
-	public void run() {
+	public void run() throws IOException {
 		welcomeMessage();
 		setAnalysisPath();
 		selectYourOperation();
 	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 		Commander command = new Commander();
 		command.run();
 	}
