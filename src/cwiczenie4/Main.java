@@ -2,6 +2,7 @@ package cwiczenie4;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -18,7 +19,7 @@ public class Main {
 		//printFiles("C:\\", ".txt");
 		//printTree("C:\\");
 		
-		printFiles("C:\\Users\\w18154\\Desktop\\TestFolder","java");
+		printTree("C:\\Users\\w18154\\Desktop\\TestFolder");
 	}
  
 	public static void printFilesSimple(String path) {
@@ -68,7 +69,7 @@ public class Main {
 		}
 	}
 	
-	public static void printFiles(String path, String extensionFilter) {
+	public static void printFiles(String path, String extensionFilter) throws IOException {
 		
 		FilenameFilter filter = new FilenameFilter() {
 	        public boolean accept(File directory, String fileName) {
@@ -84,21 +85,23 @@ public class Main {
 	File file = new File(path);
 	File[] listOfFiles = file.listFiles(filter);
 	for(File f:listOfFiles) {
-		System.out.println(f.getName());
+		System.out.println(f.getCanonicalPath());
 	}
 	
 	}
 
-	public static void printTree(String path) {
-		// to be implemented
-		// Example
-		// dirname
-		// dirname/file1
-		// dirname/file2
-		// dirname/dirname1
-		// dirname/dirname1/file1
-		// dirname/dirname1/file2
-		// dirname/dirname2/file1
+	public static void printTree(String path) throws IOException {
+		
+		File file = new File(path);
+		File[] listOffiles = file.listFiles();
+		for(File f:listOffiles) {
+			System.out.println(f.getCanonicalPath());
+			if(f.isDirectory()) {
+				printTree(f.getAbsolutePath()); 
+//			}else {
+////				break;
+//			}
+		}
+		}
 	}
-
 }
