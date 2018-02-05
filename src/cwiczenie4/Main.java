@@ -18,7 +18,7 @@ public class Main {
 		//printFiles("C:\\", ".txt");
 		//printTree("C:\\");
 		
-		printFiles("/Users/grzegorzjuszkiewicz/Desktop/Java/pl/project/encryption",".java");
+		printFiles("C:\\Users\\w18154\\Desktop\\TestFolder","java");
 	}
  
 	public static void printFilesSimple(String path) {
@@ -69,13 +69,24 @@ public class Main {
 	}
 	
 	public static void printFiles(String path, String extensionFilter) {
-		FilenameFilter filter = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.endsWith(extensionFilter);
-			}
-		};
 		
+		FilenameFilter filter = new FilenameFilter() {
+	        public boolean accept(File directory, String fileName) {
+	        	if(fileName.endsWith(extensionFilter)) {
+	        		return true;
+	        	}else {
+	        		System.out.println("no such file");
+	        		return false;
+	        	}
+	        	
+	        }
+	};
+	File file = new File(path);
+	File[] listOfFiles = file.listFiles(filter);
+	for(File f:listOfFiles) {
+		System.out.println(f.getName());
+	}
+	
 	}
 
 	public static void printTree(String path) {
