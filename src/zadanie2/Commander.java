@@ -57,7 +57,7 @@ public class Commander {
 	
 	
 	public void complexFileListening() throws IOException {
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd mm:ss");
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		File[] listOfFiles = new File(getPath()).listFiles();
 //		File[] listOfFiles = singleFile.listFiles();
 		System.out.format("%s","File name");
