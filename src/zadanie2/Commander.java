@@ -3,7 +3,6 @@ package zadanie2;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DateFormat;
@@ -57,16 +56,18 @@ public class Commander {
 	
 	
 	public void complexFileListening() throws IOException {
+		
+//		Date format definition
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		File[] listOfFiles = new File(getPath()).listFiles();
-//		File[] listOfFiles = singleFile.listFiles();
+//		Headers for table
 		System.out.format("%s","File name");
 		System.out.format("%30s", "Size");
 		System.out.format("%30s%n", "Date");
-		
+//		main loop definition
 		for(File file:listOfFiles) {
-			Path pathNew = Paths.get(file.toString());			
-			BasicFileAttributes attr = Files.readAttributes(pathNew, BasicFileAttributes.class);
+//			Path pathNew = Paths.get(file.toString());	
+			BasicFileAttributes attr = Files.readAttributes(Paths.get(file.toString()), BasicFileAttributes.class);
 			System.out.format("%-35s",file.getName());
 			if(attr.isDirectory()) {
 				System.out.format("%-25s","DIR");
@@ -90,7 +91,8 @@ public class Commander {
 	
 	public void setAnalysisPath() {
 		System.out.println("Provide full path to your folder: ");
-		setPath(scan.nextLine());
+//		setPath(scan.nextLine());
+		setPath(".");
 	}
 	
 	public void selectYourOperation() throws IOException {
