@@ -1,6 +1,7 @@
 package zadanie2;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -81,7 +82,31 @@ public class Commander {
 
 	}
 	
-	public void listFileWithSpecificFileExtension() {
+	public void listFileWithSpecificFileExtension() throws IOException {
+		System.out.println("Provide requested file extension (Example: txt): ");
+		String extensionFilter = scan.nextLine();
+		FilenameFilter filter = new FilenameFilter() {
+	        public boolean accept(File directory, String fileName) {
+	        	if(fileName.endsWith(extensionFilter)) {
+	        		return true;
+	        	}else {
+	        		return false;
+	        	}
+	        	
+	        }
+	};
+	File file = new File(path);
+	File[] listOfFiles = file.listFiles(filter);
+	boolean ifFilefound=false;
+	System.out.println("Filter value: "+filter.toString());
+	for(File f:listOfFiles) {
+		if(filter.equals(null)) {
+			System.out.println(f.getName());	
+		}else {
+			System.out.println("File not found");
+		}
+		
+	}
 		
 	}
 	
@@ -92,13 +117,14 @@ public class Commander {
 	public void setAnalysisPath() {
 		System.out.println("Provide full path to your folder: ");
 //		setPath(scan.nextLine());
-		setPath(".");
+		setPath("C:\\Users\\w18154\\Desktop\\TestFolder");
 	}
 	
 	public void selectYourOperation() throws IOException {
 		System.out.println("[1] - Simple file listening\n" + "[2] - Complex file listening\n"
 				+ "[3] - List file with specific file extension  " + "\n[4] - Print file/folder tree");
 		setUserOption(scan.nextInt());
+		scan.nextLine();
 		switch(getUserOption()) {
 		case 1:
 			simpleFileListening();
