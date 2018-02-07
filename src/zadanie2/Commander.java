@@ -97,21 +97,29 @@ public class Commander {
 	};
 	File file = new File(path);
 	File[] listOfFiles = file.listFiles(filter);
-	boolean ifFilefound=false;
-	System.out.println("Filter value: "+filter.toString());
+	if(listOfFiles.length==0) {
+		System.out.println("File not found :-(. Nothing to print here.");
+	}else {
+		System.out.format("Found %d file/s: "+System.lineSeparator(),listOfFiles.length);
+	}
 	for(File f:listOfFiles) {
-		if(filter.equals(null)) {
 			System.out.println(f.getName());	
-		}else {
-			System.out.println("File not found");
-		}
-		
 	}
 		
 	}
 	
-	public void printFileTree() {
-		
+	public void printFileTree(String path) throws IOException {
+		File file = new File(path);
+		File[] listOffiles = file.listFiles();
+		for(File f:listOffiles) {
+			System.out.println(f.getCanonicalPath());
+			if(f.isDirectory()) {
+				printFileTree(f.getCanonicalPath()); 
+//			}else {
+////				break;
+//			}
+		}
+		}
 	}
 	
 	public void setAnalysisPath() {
@@ -136,7 +144,7 @@ public class Commander {
 			listFileWithSpecificFileExtension();
 			break;
 		case 4:
-			printFileTree();
+			printFileTree(getPath());
 			break;
 		default:
 			System.out.println("Something went wrong.Goodbye :-(");
